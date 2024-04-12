@@ -112,7 +112,7 @@ function getParkPhotos(event){
             photographer.classList.add('citing');
             photographer.textContent = photo.photographer
             gallery.appendChild(img);
-            gallery.appendChild(photographer);
+            img.appendChild(photographer);
 
       });
       })
@@ -237,7 +237,7 @@ searchButton.addEventListener('click', getParkPhotos);
             photographer.classList.add('citing');
             photographer.textContent = photo.photographer
             gallery.appendChild(img);
-            gallery.appendChild(photographer);
+            img.appendChild(photographer);
       });
       })
       .catch(error => {
