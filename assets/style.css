@@ -183,6 +183,7 @@ h3 {
 }
 
 #gallery img {
+    position: fixed;
     margin: 5px;
     border-radius: 3px;
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.4)

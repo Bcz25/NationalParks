@@ -106,13 +106,15 @@ function getParkPhotos(event){
           // Clear existing content
           gallery.innerHTML = '';
           data.photos.forEach(photo => {
+            const imgContainer = document.createElement('div')
             const img = document.createElement('img');
             img.src = photo.src.medium;
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
             photographer.textContent = photo.photographer
-            gallery.appendChild(photographer);            
-            gallery.appendChild(img);
+            gallery.appendChild(imgContainer);
+            imgContainer.appendChild(photographer);            
+            imgContainer.appendChild(img);
 
       });
       })
