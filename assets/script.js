@@ -111,7 +111,7 @@ function getParkPhotos(event){
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
             photographer.textContent = photo.photographer
-            img.appendChild(photographer);            
+            gallery.appendChild(photographer);            
             gallery.appendChild(img);
 
       });
