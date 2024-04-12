@@ -111,8 +111,8 @@ function getParkPhotos(event){
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
             photographer.textContent = photo.photographer
+            img.appendChild(photographer);            
             gallery.appendChild(img);
-            img.appendChild(photographer);
 
       });
       })
@@ -236,8 +236,9 @@ searchButton.addEventListener('click', getParkPhotos);
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
             photographer.textContent = photo.photographer
-            gallery.appendChild(img);
             img.appendChild(photographer);
+            gallery.appendChild(img);
+            
       });
       })
       .catch(error => {
