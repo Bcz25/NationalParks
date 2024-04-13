@@ -5,6 +5,11 @@ const parkDescriptionEl = document.getElementById('description');
 const parkWeatherEl = document.getElementById('weather');
 const parkActivitiesEl = document.getElementById('activities')
 
+const apiKey = "d819c0f02622027c482907b6666513c6";
+const apiForecast = 'https://api.openweathermap.org/data/2.5/forecast';
+const forecastContainer = document.getElementById('park-forecast');
+const forecastHeader = document.getElementById('forecast-header')
+
 
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
@@ -68,10 +73,16 @@ function createParkCard (data) {
   parkDescriptionEl.innerHTML = '';
   parkWeatherEl.innerHTML = '';
   parkActivitiesEl.innerHTML = '';
+  forecastHeader.innerHTML = '';
 
+  const parkSearch = searchInput.value;
   const newHeader = document.createElement('h2');
   const descriptionParagraph = document.createElement('p');
   const weatherParagraph = document.createElement('p');
+  const forecastId = document.createElement('h3');
+  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+  forecastHeader.appendChild(forecastId);
+
   parkNameEl.appendChild(newHeader).textContent = data.park;
   parkDescriptionEl.appendChild(descriptionParagraph).textContent = data.description;
   parkWeatherEl.appendChild(weatherParagraph).textContent = data.weather;
@@ -254,12 +265,6 @@ searchButton.addEventListener('click', getParkPhotos);
   }
 
   openPage();
-
-const apiKey = "d819c0f02622027c482907b6666513c6";
-const apiForecast = 'https://api.openweathermap.org/data/2.5/forecast';
-const forecastContainer = document.getElementById('park-forecast');
-const forecastHeader = document.getElementById('forecast-header')
-
 
 function forecastWeather(event){
     event.preventDefault();
