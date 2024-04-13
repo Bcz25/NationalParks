@@ -214,3 +214,21 @@ p {
     color: var(--brown);
     box-shadow: 2px 2px 4px 2px rgb(0,0,0, .5);
 }
+
+/* style for weather.js*/
+.five-day {
+    background-color: #324349;
+    border: 3px solid #9f5d18fa;
+    color: #abb0b1;
+    margin: 20px;
+    padding: 10px;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.3);
+}
+
+.five-day ul{
+    list-style-type: none;
+}
+
+.five-day h4 {
+    font-size: 20px;
+}

@@ -109,6 +109,7 @@ function getParkPhotos(event){
                // added div
                const img = document.createElement('img');
                const imgContainer = document.createElement('div')
+               imgContainer.classList.add('img-container');
                img.src = photo.src.medium;
                const photographer = document.createElement('p');
                photographer.classList.add('citing');
