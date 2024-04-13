@@ -90,7 +90,7 @@ function getParkPhotos(event){
   event.preventDefault();
   const apiUrl = `https://api.pexels.com/v1/search`
   const parks = searchInput.value;
-  const fetchPics = `${apiUrl}?query=${parks}&per_page=6`;
+  const fetchPics = `${apiUrl}?query=${parks}&per_page=4`;
   fetch(fetchPics, {
       headers: {
           Authorization: "YHJTxEYXr7hGIeSQrGhw7Q5cjhlXubPRmgYVQUK7PXD6ZBhd3sjszejz"
@@ -325,6 +325,9 @@ function processForecastData(data) {
 }
 
 function createForecastCard(forecast) {
+    const forecastHeader = document.createElement('h3');
+    const park = searchInput.value
+    forecastHeader.textContent = `Forecasted weather for ${park}`;
     const card = document.createElement('div');
     card.classList.add('card', 'col-md-2', 'five-day');
     
@@ -345,8 +348,6 @@ function createForecastCard(forecast) {
     const cardHumid = document.createElement('li');
     cardHumid.textContent = `Humidity: ${forecast.humidity}%`;
 
-    const icon = document.createElement('img');
-    icon.src = forecast.iconUrl;
 
     
     card.appendChild(cardTitle);
@@ -355,7 +356,6 @@ function createForecastCard(forecast) {
     cardTextContainer.appendChild(cardMax);
     cardTextContainer.appendChild(cardMin);
     cardTextContainer.appendChild(cardHumid);
-    cardBody.appendChild(icon);
 
     return card;
 }
