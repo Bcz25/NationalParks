@@ -358,10 +358,9 @@ function createForecastCard(forecast) {
 
 searchButton.addEventListener('click', forecastWeather)
 searchButton.addEventListener('click', function (){
+  forecastHeader.innerHTML = '';
   const parkSearch = searchInput.value.trim();
   const forecastId = document.createElement('h3');
-  const forecastHeader = document.getElementById('forecast-header')
-  forecastHeader.innerHTML = '';
   forecastId.textContent = `Forecasted weather for ${parkSearch}`;
   forecastHeader.appendChild(forecastId)
 })
@@ -377,7 +376,6 @@ document.addEventListener('DOMContentLoaded', function (){
             else {
               const mainPark = "Zion National Park"
               const forecastId = document.createElement('h3');
-              const forecastHeader = document.getElementById('forecast-header')
               forecastId.textContent = `Forecasted weather for ${mainPark}`;
               forecastHeader.appendChild(forecastId);
             }
