@@ -73,7 +73,6 @@ function createParkCard (data) {
   parkDescriptionEl.innerHTML = '';
   parkWeatherEl.innerHTML = '';
   parkActivitiesEl.innerHTML = '';
-  forecastHeader.innerHTML = '';
 
   const parkSearch = searchInput.value;
   const newHeader = document.createElement('h2');
