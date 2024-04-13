@@ -90,7 +90,7 @@ function getParkPhotos(event){
   event.preventDefault();
   const apiUrl = `https://api.pexels.com/v1/search`
   const parks = searchInput.value;
-  const fetchPics = `${apiUrl}?query=${parks}&per_page=4`;
+  const fetchPics = `${apiUrl}?query=${parks}&per_page=6`;
   fetch(fetchPics, {
       headers: {
           Authorization: "YHJTxEYXr7hGIeSQrGhw7Q5cjhlXubPRmgYVQUK7PXD6ZBhd3sjszejz"
@@ -219,7 +219,7 @@ searchButton.addEventListener('click', getParkPhotos);
 
       const imageApiUrl = `https://api.pexels.com/v1/search`
   const parks = 'zion';
-  const fetchPics = `${imageApiUrl}?query=${parks}&per_page=4`;
+  const fetchPics = `${imageApiUrl}?query=${parks}&per_page=6`;
   fetch(fetchPics, {
       headers: {
           Authorization: "YHJTxEYXr7hGIeSQrGhw7Q5cjhlXubPRmgYVQUK7PXD6ZBhd3sjszejz"
