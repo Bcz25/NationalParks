@@ -265,7 +265,6 @@ function forecastWeather(event){
     event.preventDefault();
     const parkSearch = searchInput.value.trim();
     const fetchForecast = `${apiForecast}?q=${parkSearch}&units=imperial&appid=${apiKey}`;
-    forecastHeader.innerHTML= '';
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
@@ -363,12 +362,6 @@ function createForecastCard(forecast) {
 }
 
 searchButton.addEventListener('click', forecastWeather)
-searchButton.addEventListener('click', function (){
-  const parkSearch = searchInput.value.trim();
-  const forecastId = document.createElement('h3');
-  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-  forecastHeader.appendChild(forecastId)
-})
 
 
 document.addEventListener('DOMContentLoaded', function (){
