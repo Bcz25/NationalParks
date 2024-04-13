@@ -273,6 +273,14 @@ function forecastWeather(event){
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
+            else {
+              const parkSearch = searchInput.value.trim();
+              const forecastId = document.createElement('h3');
+              const forecastHeader = document.getElementById('forecast-header')
+              forecastHeader.innerHTML= "";
+              forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+              forecastHeader.appendChild(forecastId);
+            }
             return response.json();
         })
         .then(data => {
@@ -281,14 +289,6 @@ function forecastWeather(event){
             forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
                 forecastContainer.appendChild(forecastCard);
-                if(forecasts){
-                  const parkSearch = searchInput.value.trim();
-                  const forecastId = document.createElement('h3');
-                  const forecastHeader = document.getElementById('forecast-header')
-                  forecastHeader.innerHTML= "";
-                  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-                  forecastHeader.appendChild(forecastId);
-                };
             });
         })
         .catch(error => {
@@ -369,6 +369,31 @@ function createForecastCard(forecast) {
 searchButton.addEventListener('click', forecastWeather)
 
 document.addEventListener('DOMContentLoaded', function (){
-  const parkSearch = "Zion National Park";
- forecastWeather(parkSearch);
+    const fetchForecast = `${apiForecast}?q=Zion&units=imperial&appid=${apiKey}`;
+    fetch(fetchForecast)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            else {
+              const mainPark = "Zion National Park"
+              const forecastId = document.createElement('h3');
+              const forecastHeader = document.getElementById('forecast-header')
+              forecastHeader.innerHTML= "";
+              forecastId.textContent = `Forecasted weather for ${mainPark}`;
+              forecastHeader.appendChild(forecastId);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const forecasts = processForecastData(data);
+            forecastContainer.innerHTML = ''; 
+            forecasts.forEach(forecast => {
+                const forecastCard = createForecastCard(forecast);
+                forecastContainer.appendChild(forecastCard);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
 })
