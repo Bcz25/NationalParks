@@ -265,6 +265,10 @@ function forecastWeather(event){
     event.preventDefault();
     const parkSearch = searchInput.value.trim();
     const fetchForecast = `${apiForecast}?q=${parkSearch}&units=imperial&appid=${apiKey}`;
+    const forecastHeader = document.createElement('h3');
+    const park = searchInput.value
+    forecastContainer.appendChild(forecastHeader);
+    forecastHeader.textContent = `Forecasted weather for ${park}`;
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
@@ -277,7 +281,7 @@ function forecastWeather(event){
             forecastContainer.innerHTML = ''; 
             forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
-                forecastContainer.appendChild(forecastCard); 
+                forecastContainer.appendChild(forecastCard);
             });
         })
         .catch(error => {
@@ -325,10 +329,6 @@ function processForecastData(data) {
 }
 
 function createForecastCard(forecast) {
-    const forecastHeader = document.createElement('h3');
-    const park = searchInput.value
-    
-    forecastHeader.textContent = `Forecasted weather for ${park}`;
     const card = document.createElement('div');
     card.classList.add('card', 'col-md-2', 'five-day');
     
@@ -349,8 +349,6 @@ function createForecastCard(forecast) {
     const cardHumid = document.createElement('li');
     cardHumid.textContent = `Humidity: ${forecast.humidity}%`;
 
-
-    forecastContainer.appendChild(forecastHeader);
     card.appendChild(cardTitle);
     card.appendChild(cardBody);
     card.appendChild(cardTextContainer);
