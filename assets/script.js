@@ -8,7 +8,6 @@ const parkActivitiesEl = document.getElementById('activities')
 const apiKey = "d819c0f02622027c482907b6666513c6";
 const apiForecast = 'https://api.openweathermap.org/data/2.5/forecast';
 const forecastContainer = document.getElementById('park-forecast');
-const forecastHeader = document.getElementById('forecast-header')
 
 
 const searchButton = document.getElementById('search-button');
@@ -78,9 +77,6 @@ function createParkCard (data) {
   const newHeader = document.createElement('h2');
   const descriptionParagraph = document.createElement('p');
   const weatherParagraph = document.createElement('p');
-  const forecastId = document.createElement('h3');
-  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-  forecastHeader.appendChild(forecastId);
 
   parkNameEl.appendChild(newHeader).textContent = data.park;
   parkDescriptionEl.appendChild(descriptionParagraph).textContent = data.description;
@@ -230,7 +226,7 @@ searchButton.addEventListener('click', getParkPhotos);
 
       const imageApiUrl = `https://api.pexels.com/v1/search`
       const parks = 'zion';
-      const fetchPics = `${imageApiUrl}?query=${parks}&per_page=6`;
+      const fetchPics = `${imageApiUrl}?query=${parks}&per_page=4`;
       fetch(fetchPics, {
       headers: {
           Authorization: "YHJTxEYXr7hGIeSQrGhw7Q5cjhlXubPRmgYVQUK7PXD6ZBhd3sjszejz"
@@ -267,24 +263,22 @@ searchButton.addEventListener('click', getParkPhotos);
 
 function forecastWeather(event){
     event.preventDefault();
-    const parkSearch = searchInput.value.trim();
+    const parkSearch = searchInput.value;
     const fetchForecast = `${apiForecast}?q=${parkSearch}&units=imperial&appid=${apiKey}`;
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-            else {
-              const forecastId = document.createElement('h3');
-              forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-              forecastHeader.appendChild(forecastId);
-            }
             return response.json();
         })
         .then(data => {
+            const forecastTitle = document.createElement('h3')
+            forecastTitle.textContent = `Forecasted weather for ${parkSearch}`;
             const forecasts = processForecastData(data);
-            forecastContainer.innerHTML = ''; 
-            forecasts.forEach(forecast => {
+            forecastContainer.innerHTML = '';
+            forecastContainer.appendChild(forecastTitle);
+                forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
                 forecastContainer.appendChild(forecastCard);
             });
@@ -335,7 +329,7 @@ function processForecastData(data) {
 
 function createForecastCard(forecast) {
     const card = document.createElement('div');
-    card.classList.add('card', 'col-md-2', 'five-day');
+    card.classList.add('card', 'is-2-tablet', 'five-day');
     
     const cardTitle = document.createElement('h4');
     cardTitle.textContent = forecast.date;
@@ -365,24 +359,20 @@ function createForecastCard(forecast) {
 }
 
 searchButton.addEventListener('click', forecastWeather)
-
-
 document.addEventListener('DOMContentLoaded', function (){
+    const mainPark = "Zion National Park"
     const mainForecast = `${apiForecast}?q=Zion&units=imperial&appid=${apiKey}`;
     fetch(mainForecast)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-            else {
-              const mainPark = "Zion National Park"
-              const forecastId = document.createElement('h3');
-              forecastId.textContent = `Forecasted weather for ${mainPark}`;
-              forecastHeader.appendChild(forecastId);
-            }
             return response.json();
         })
         .then(data => {
+            const forecastTitle = document.createElement('h3')
+            forecastTitle.textContent = `Forecasted weather for ${mainPark}`;
+            forecastContainer.appendChild(forecastTitle);
             const forecasts = processForecastData(data);
             forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
