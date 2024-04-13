@@ -111,7 +111,7 @@ function getParkPhotos(event){
             img.src = photo.src.medium;
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
-            photographer.textContent = photo.photographer
+            photographer.textContent = `"Photo by": ${photo.photographer} "on Pexels"`;
             gallery.appendChild(imgContainer);
             imgContainer.appendChild(photographer);            
             imgContainer.appendChild(img);
@@ -234,12 +234,14 @@ searchButton.addEventListener('click', getParkPhotos);
           gallery.innerHTML = '';
           data.photos.forEach(photo => {
             const img = document.createElement('img');
+            \const imgContainer = document.createElement('div')
             img.src = photo.src.medium;
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
-            photographer.textContent = photo.photographer
-            img.appendChild(photographer);
-            gallery.appendChild(img);
+            photographer.textContent = `"Photo by": ${photo.photographer} "on Pexels"`;
+            gallery.appendChild(imgContainer);
+            imgContainer.appendChild(photographer);            
+            imgContainer.appendChild(img);
             
       });
       })
