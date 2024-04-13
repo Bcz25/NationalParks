@@ -379,7 +379,6 @@ document.addEventListener('DOMContentLoaded', function (){
               const mainPark = "Zion National Park"
               const forecastId = document.createElement('h3');
               const forecastHeader = document.getElementById('forecast-header')
-              forecastHeader.innerHTML= "";
               forecastId.textContent = `Forecasted weather for ${mainPark}`;
               forecastHeader.appendChild(forecastId);
             }
