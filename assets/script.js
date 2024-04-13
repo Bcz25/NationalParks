@@ -261,14 +261,13 @@ searchButton.addEventListener('click', getParkPhotos);
 const apiKey = "d819c0f02622027c482907b6666513c6";
 const apiForecast = 'https://api.openweathermap.org/data/2.5/forecast';
 const forecastContainer = document.getElementById('park-forecast');
+const forecastHeader = document.getElementById('forecast-header')
+
+
 function forecastWeather(event){
     event.preventDefault();
     const parkSearch = searchInput.value.trim();
     const fetchForecast = `${apiForecast}?q=${parkSearch}&units=imperial&appid=${apiKey}`;
-    const forecastHeader = document.createElement('h3');
-    const park = searchInput.value
-    forecastContainer.appendChild(forecastHeader);
-    forecastHeader.textContent = `Forecasted weather for ${park}`;
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
@@ -359,4 +358,20 @@ function createForecastCard(forecast) {
     return card;
 }
 
-searchButton.addEventListener('click', forecastWeather)
+searchButton.addEventListener('click', function() {
+  const parkSearch = searchInput.value.trim();
+  const forecastId = document.createElement('h3');
+  const forecastHeader = document.getElementById('forecast-header')
+  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+  forecastHeader.appendChild(forecastId);
+  forecastWeather();
+});
+
+document.addEventListener('DOMContentLoaded', function (){
+  const parkSearch = "Zion National Park";
+  const forecastId = document.createElement('h3');
+  const forecastHeader = document.getElementById('forecast-header')
+  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+  forecastHeader.appendChild(forecastId);
+  forecastWeather();
+})
