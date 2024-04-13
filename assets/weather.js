@@ -6,7 +6,10 @@ const forecastContainer = document.getElementById('park-forecast');
 
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
-
+const apiKey = "d819c0f02622027c482907b6666513c6";
+const apiForecast = 'https://api.openweathermap.org/data/2.5/forecast';
+const parkNameEl = document.getElementById('park-name');
+const forecastContainer = document.getElementById('park-forecast');
 function forecastWeather(event){
     event.preventDefault();
     const parkSearch = searchInput.value.trim();
