@@ -281,19 +281,19 @@ function forecastWeather(event){
             forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
                 forecastContainer.appendChild(forecastCard);
+                if(forecasts){
+                  const parkSearch = searchInput.value.trim();
+                  const forecastId = document.createElement('h3');
+                  const forecastHeader = document.getElementById('forecast-header')
+                  forecastHeader.innerHTML= "";
+                  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+                  forecastHeader.appendChild(forecastId);
+                };
             });
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
-        if(forecasts){
-          const parkSearch = searchInput.value.trim();
-          const forecastId = document.createElement('h3');
-          const forecastHeader = document.getElementById('forecast-header')
-          forecastHeader.innerHTML= "";
-          forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-          forecastHeader.appendChild(forecastId);
-        };
 }
 
 function processForecastData(data) {
