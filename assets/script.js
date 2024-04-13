@@ -113,13 +113,12 @@ function getParkPhotos(event){
             img.src = photo.src.medium;
             img.classList.add('hero-body');
             const photographer = document.createElement('p');
-            photographer.classList.add('citing', 'subtitle');
+            photographer.classList.add('citing', 'title');
             //copy below 
-            photographer.textContent = `"Photo by": ${photo.photographer} "on Pexels"`;
-            gallery.appendChild(imgContainer);
-            imgContainer.appendChild(photographer);            
+            photographer.textContent = `Photo by: ${photo.photographer} on Pexels`;
+            gallery.appendChild(imgContainer);       
             imgContainer.appendChild(img);
-
+            imgContainer.appendChild(photographer);     
       });
       })
       .catch(error => {
