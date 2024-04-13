@@ -327,6 +327,7 @@ function processForecastData(data) {
 function createForecastCard(forecast) {
     const forecastHeader = document.createElement('h3');
     const park = searchInput.value
+    
     forecastHeader.textContent = `Forecasted weather for ${park}`;
     const card = document.createElement('div');
     card.classList.add('card', 'col-md-2', 'five-day');
@@ -349,7 +350,7 @@ function createForecastCard(forecast) {
     cardHumid.textContent = `Humidity: ${forecast.humidity}%`;
 
 
-    
+    forecastContainer.appendChild(forecastHeader);
     card.appendChild(cardTitle);
     card.appendChild(cardBody);
     card.appendChild(cardTextContainer);
