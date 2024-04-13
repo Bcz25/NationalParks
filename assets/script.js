@@ -272,9 +272,8 @@ function forecastWeather(event){
             }
             else {
               const forecastId = document.createElement('h3');
-              const parkSearch = searchInput.value.trim();
               forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-              forecastHeader.appendChild(forecastId)
+              forecastHeader.appendChild(forecastId);
             }
             return response.json();
         })
