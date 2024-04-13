@@ -1,14 +1,14 @@
-const parksArray = ['Acadia', 'Arches', 'Badlands', 'Big Bend', 'Biscayne', 'Black Canyon', 'Bryce Canyon', 'Canyonlands', 'Capitol Reef', 'Carlsbad', 'Channel Islands', 'Congaree', 'Crater Lake', 'Cuyahoga Valley', 'Death Valley', 'Denali', 'Dry Tortugas', 'Everglades', 'Gates of the Artic', 'Gateway Arch', 'Glacier Bay', 'Glacier', 'Grand Canyon', 'Grand Teton', 'Great Basin', 'Great Sand Dunes', 'Great Smokey Mountains', 'Guadalupe Mountains', 'Haleakala', 'Hawaii Volcanoes', 'Hot Springs', 'Indiana Dues', 'Isle Royale', 'Joshua Tree', 'Katmai', 'Kenai Fjords', 'Kings Canyon', 'Kobuk Valley', 'Lake Clark', 'Lassen Volcanic', 'Mammoth Cave', 'Mesa Verde', 'Mount Ranier', 'American Samoa', 'New River Gorge', 'North Cascades', 'Olympic', 'Petrified Forest', 'Pinnacles', 'Redwood', 'Rocky Mountain', 'Saguaro', 'Sequoia', 'Shenandoah', 'Theodore Roosevelt', 'Virgin Islands', 'Voyageurs', 'White Sands', 'Wind Cave', 'Wrangell-St Elias', 'Yellowstone', 'Yosemite', 'Zion']
+const parksArray = ['Acadia', 'Arches', 'Badlands', 'Big Bend', 'Biscayne', 'Black Canyon', 'Bryce Canyon', 'Canyonlands', 'Capitol Reef', 'Carlsbad', 'Channel Islands', 'Congaree', 'Crater Lake', 'Cuyahoga Valley', 'Death Valley', 'Denali', 'Dry Tortugas', 'Everglades', 'Gates of the Arctic', 'Gateway Arch', 'Glacier Bay', 'Grand Canyon', 'Grand Teton', 'Great Basin', 'Great Sand Dunes', 'Great Smokey Mountains', 'Guadalupe Mountains', 'Haleakalā', 'Hawaiʻi volcanoes', 'Hot Springs', 'Indiana Dunes', 'Isle Royale', 'Joshua Tree', 'Katmai', 'Kenai Fjords', 'Kings Canyon', 'Kobuk Valley', 'Lake Clark', 'Lassen Volcanic', 'Mammoth Cave', 'Mesa Verde', 'Mount Rainier', 'New River Gorge', 'North Cascades', 'Olympic', 'Petrified Forest', 'Pinnacles', 'Redwood', 'Rocky Mountain', 'Saguaro', 'Sequoia', 'Shenandoah', 'Theodore Roosevelt', 'Virgin Islands', 'Voyageurs', 'White Sands', 'Wind Cave', 'Elias', 'Yellowstone', 'Yosemite', 'Zion']
 
 const parkNameEl = document.getElementById('park-name');
 const parkDescriptionEl = document.getElementById('description');
 const parkWeatherEl = document.getElementById('weather');
 const parkActivitiesEl = document.getElementById('activities')
+const searchTerm = getRandomPark();
 
-const apiKey = "d819c0f02622027c482907b6666513c6";
-const apiForecast = 'https://api.openweathermap.org/data/2.5/forecast';
+const weatherApiKey = "d819c0f02622027c482907b6666513c6";
+const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 const forecastContainer = document.getElementById('park-forecast');
-
 
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
@@ -73,11 +73,9 @@ function createParkCard (data) {
   parkWeatherEl.innerHTML = '';
   parkActivitiesEl.innerHTML = '';
 
-  const parkSearch = searchInput.value;
   const newHeader = document.createElement('h2');
   const descriptionParagraph = document.createElement('p');
   const weatherParagraph = document.createElement('p');
-
   parkNameEl.appendChild(newHeader).textContent = data.park;
   parkDescriptionEl.appendChild(descriptionParagraph).textContent = data.description;
   parkWeatherEl.appendChild(weatherParagraph).textContent = data.weather;
@@ -95,7 +93,7 @@ const gallery = document.getElementById('gallery')
 function getParkPhotos(event){
   event.preventDefault();
   const apiUrl = `https://api.pexels.com/v1/search`
-  const parks = searchInput.value;
+  const parks = searchInput.value + ' National Park';
   const fetchPics = `${apiUrl}?query=${parks}&per_page=4`;
   fetch(fetchPics, {
       headers: {
@@ -111,26 +109,45 @@ function getParkPhotos(event){
       .then (data => {
           // Clear existing content
           gallery.innerHTML = '';
-          data.photos.forEach(photo => { 
-               // added div
-               const img = document.createElement('img');
-               const imgContainer = document.createElement('div')
-               imgContainer.classList.add('img-container');
-               img.src = photo.src.medium;
-               const photographer = document.createElement('p');
-               photographer.classList.add('citing');
-               imgContainer.classList.add('img-container');
-               //copy below
-               photographer.textContent = `Photo by: ${photo.photographer} on Pexels`;
-               gallery.appendChild(imgContainer);
-               imgContainer.appendChild(photographer);            
-               imgContainer.appendChild(img);
+          data.photos.forEach(photo => {
+            const img = document.createElement('img');
+            const imgContainer = document.createElement('div')
+            imgContainer.classList.add('img-container');
+            img.src = photo.src.medium;
+            const photographer = document.createElement('p');
+            photographer.classList.add('citing');
+            imgContainer.classList.add('img-container');
+            photographer.textContent = `Photo by: ${photo.photographer} on Pexels`;
+            gallery.appendChild(imgContainer);
+            imgContainer.appendChild(photographer);            
+            imgContainer.appendChild(img);
       });
       })
       .catch(error => {
           console.error('Error fetching data:', error);
       });
 }
+
+function populateDatalist() {
+  const datalist = document.getElementById('parks-list');
+  
+  parksArray.forEach(park => {
+    const option = document.createElement('option');
+    option.value = park;
+    datalist.appendChild(option);
+  });
+}
+
+// Call the function when the page loads
+populateDatalist()
+
+function getRandomPark() {
+  const randomIndex = Math.floor(Math.random() * parksArray.length);
+  return parksArray[randomIndex];
+}
+
+openPage();
+
 searchButton.addEventListener('click', getParkPhotos);
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -175,7 +192,10 @@ searchButton.addEventListener('click', getParkPhotos);
       }
     });
   });
-
+  function getRandomPark() {
+    const randomIndex = Math.floor(Math.random() * parksArray.length);
+    return parksArray[randomIndex];
+}
   function openPage() {
     const apiUrl = 'https://developer.nps.gov/api/v1/parks';
     
@@ -183,10 +203,12 @@ searchButton.addEventListener('click', getParkPhotos);
     const apiKey = 'zsg1JUezGGMHKiM4K9RLRe95wfbFzkZKZx5wr4V4';
     
     // Define the search term for Yellowstone National Park
-    const searchTerm = 'zion';
+    
     
     // Construct the fetch URL with the search term and API key
     const fetchUrl = `${apiUrl}?q=${searchTerm}&api_key=${apiKey}`;
+
+    console.log(searchTerm);
 
     fetch(fetchUrl)
       .then(response => {
@@ -225,8 +247,9 @@ searchButton.addEventListener('click', getParkPhotos);
       });
 
       const imageApiUrl = `https://api.pexels.com/v1/search`
-      const parks = 'zion';
-      const fetchPics = `${imageApiUrl}?query=${parks}&per_page=4`;
+      const imageSearchTerm = searchTerm + ' National Park';
+      const fetchPics = `${imageApiUrl}?query=${imageSearchTerm}&per_page=4`;
+    
       fetch(fetchPics, {
       headers: {
           Authorization: "YHJTxEYXr7hGIeSQrGhw7Q5cjhlXubPRmgYVQUK7PXD6ZBhd3sjszejz"
@@ -244,6 +267,7 @@ searchButton.addEventListener('click', getParkPhotos);
           data.photos.forEach(photo => {
             const img = document.createElement('img');
             const imgContainer = document.createElement('div')
+            imgContainer.classList.add('img-container');
             img.src = photo.src.medium;
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
@@ -257,15 +281,16 @@ searchButton.addEventListener('click', getParkPhotos);
       .catch(error => {
           console.error('Error fetching data:', error);
       });
+      forecastWeather();
   }
 
   openPage();
 
-const dashboard = document.getElementById('weather-data')
-function forecastWeather(event){
+  //weather dashboard
+  function forecastWeather(event){
     event.preventDefault();
     const parkSearch = searchInput.value;
-    const fetchForecast = `${apiForecast}?q=${parkSearch}&units=imperial&appid=${apiKey}`;
+    const fetchForecast = `${weatherApiUrl}?q=${parkSearch}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
@@ -274,13 +299,10 @@ function forecastWeather(event){
             return response.json();
         })
         .then(data => {
-            const forecastContainer = document.createElement('div')
-            forecastContainer.classList.add('column is-4-tablet forecast-info')
             const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${parkSearch}`;
+            forecastTitle.textContent = `Forecasted weather for ${parkSearch} National Park`;
             const forecasts = processForecastData(data);
-            dashboard.innerHTML = '';
-            dashboard.appendChild(forecastContainer);
+            forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
                 forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
