@@ -286,6 +286,14 @@ function forecastWeather(event){
         .catch(error => {
             console.error('Error fetching data:', error);
         });
+        if(forecasts){
+          const parkSearch = searchInput.value.trim();
+          const forecastId = document.createElement('h3');
+          const forecastHeader = document.getElementById('forecast-header')
+          forecastHeader.innerHTML= "";
+          forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+          forecastHeader.appendChild(forecastId);
+        };
 }
 
 function processForecastData(data) {
@@ -358,20 +366,9 @@ function createForecastCard(forecast) {
     return card;
 }
 
-searchButton.addEventListener('click', function() {
-  const parkSearch = searchInput.value.trim();
-  const forecastId = document.createElement('h3');
-  const forecastHeader = document.getElementById('forecast-header')
-  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-  forecastHeader.appendChild(forecastId);
-  forecastWeather();
-});
+searchButton.addEventListener('click', forecastWeather)
 
 document.addEventListener('DOMContentLoaded', function (){
   const parkSearch = "Zion National Park";
-  const forecastId = document.createElement('h3');
-  const forecastHeader = document.getElementById('forecast-header')
-  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-  forecastHeader.appendChild(forecastId);
-  forecastWeather();
+ forecastWeather(parkSearch);
 })
