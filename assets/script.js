@@ -219,9 +219,9 @@ searchButton.addEventListener('click', getParkPhotos);
       });
 
       const imageApiUrl = `https://api.pexels.com/v1/search`
-  const parks = 'zion';
-  const fetchPics = `${imageApiUrl}?query=${parks}&per_page=6`;
-  fetch(fetchPics, {
+      const parks = 'zion';
+      const fetchPics = `${imageApiUrl}?query=${parks}&per_page=6`;
+      fetch(fetchPics, {
       headers: {
           Authorization: "YHJTxEYXr7hGIeSQrGhw7Q5cjhlXubPRmgYVQUK7PXD6ZBhd3sjszejz"
       }
@@ -236,19 +236,16 @@ searchButton.addEventListener('click', getParkPhotos);
           // Clear existing content
           gallery.innerHTML = '';
           data.photos.forEach(photo => {
-            // added div
             const img = document.createElement('img');
             const imgContainer = document.createElement('div')
             img.src = photo.src.medium;
             const photographer = document.createElement('p');
             photographer.classList.add('citing');
             imgContainer.classList.add('img-container');
-            //copy below
             photographer.textContent = `Photo by: ${photo.photographer} on Pexels`;
             gallery.appendChild(imgContainer);
             imgContainer.appendChild(photographer);            
             imgContainer.appendChild(img);
-            
       });
       })
       .catch(error => {
@@ -273,13 +270,6 @@ function forecastWeather(event){
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
-            }
-            else {
-              const parkSearch = searchInput.value.trim();
-              const forecastId = document.createElement('h3');
-              const forecastHeader = document.getElementById('forecast-header')
-              forecastId.textContent = `Forecasted weather for ${parkSearch}`;
-              forecastHeader.appendChild(forecastId);
             }
             return response.json();
         })
@@ -367,6 +357,15 @@ function createForecastCard(forecast) {
 }
 
 searchButton.addEventListener('click', forecastWeather)
+searchButton.addEventListener('click', function (){
+  const parkSearch = searchInput.value.trim();
+  const forecastId = document.createElement('h3');
+  const forecastHeader = document.getElementById('forecast-header')
+  forecastHeader.innerHTML = '';
+  forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+  forecastHeader.appendChild(forecastId)
+})
+
 
 document.addEventListener('DOMContentLoaded', function (){
     const mainForecast = `${apiForecast}?q=Zion&units=imperial&appid=${apiKey}`;
@@ -386,7 +385,6 @@ document.addEventListener('DOMContentLoaded', function (){
         })
         .then(data => {
             const forecasts = processForecastData(data);
-            forecastContainer.innerHTML = ''; 
             forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
                 forecastContainer.appendChild(forecastCard);
