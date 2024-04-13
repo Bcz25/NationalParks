@@ -107,18 +107,18 @@ function getParkPhotos(event){
           gallery.innerHTML = '';
           data.photos.forEach(photo => {
             //added div 
-            const imgContainer = document.createElement('div')
-            imgContainer.classList.add('img-container');
-            const img = document.createElement('img');
-            img.src = photo.src.medium;
-            img.classList.add('hero-body');
-            const photographer = document.createElement('p');
-            photographer.classList.add('citing',);
-            //copy below 
-            photographer.textContent = `Photo by: ${photo.photographer} on Pexels`;
-            gallery.appendChild(imgContainer);       
-            imgContainer.appendChild(img);
-            imgContainer.appendChild(photographer);     
+               // added div
+               const img = document.createElement('img');
+               const imgContainer = document.createElement('div')
+               img.src = photo.src.medium;
+               const photographer = document.createElement('p');
+               photographer.classList.add('citing');
+               imgContainer.classList.add('img-container');
+               //copy below
+               photographer.textContent = `Photo by: ${photo.photographer} on Pexels`;
+               gallery.appendChild(imgContainer);
+               imgContainer.appendChild(photographer);            
+               imgContainer.appendChild(img);
       });
       })
       .catch(error => {
