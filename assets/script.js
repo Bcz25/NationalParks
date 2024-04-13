@@ -271,6 +271,12 @@ function forecastWeather(event){
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
+            else {
+              const forecastId = document.createElement('h3');
+              const parkSearch = searchInput.value.trim();
+              forecastId.textContent = `Forecasted weather for ${parkSearch}`;
+              forecastHeader.appendChild(forecastId)
+            }
             return response.json();
         })
         .then(data => {
