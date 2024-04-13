@@ -358,7 +358,6 @@ function createForecastCard(forecast) {
 
 searchButton.addEventListener('click', forecastWeather)
 searchButton.addEventListener('click', function (){
-  forecastHeader.innerHTML = '';
   const parkSearch = searchInput.value.trim();
   const forecastId = document.createElement('h3');
   forecastId.textContent = `Forecasted weather for ${parkSearch}`;
