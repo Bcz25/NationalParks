@@ -108,12 +108,12 @@ function getParkPhotos(event){
           data.photos.forEach(photo => {
             //added div 
             const imgContainer = document.createElement('div')
-            imgContainer.classList.add('hero');
+            imgContainer.classList.add('img-container');
             const img = document.createElement('img');
             img.src = photo.src.medium;
             img.classList.add('hero-body');
             const photographer = document.createElement('p');
-            photographer.classList.add('citing', 'title');
+            photographer.classList.add('citing',);
             //copy below 
             photographer.textContent = `Photo by: ${photo.photographer} on Pexels`;
             gallery.appendChild(imgContainer);       

@@ -182,6 +182,11 @@ h3 {
     justify-content: center
 }
 
+
+.img-container{
+    display: flex;
+}
+
 #gallery img {
     margin: 5px;
     border-radius: 3px;
@@ -193,6 +198,11 @@ p {
 }
 
 .citing {
+    display: inline-block;
+    position: relative;
+    top: 355px;
+    left: 5px;
+    font-size: 10px;
     background-color: var(--ferngreen);
     border-radius: 2px;
     color: var(--brown);
