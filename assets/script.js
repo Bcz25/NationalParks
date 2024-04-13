@@ -268,6 +268,7 @@ function forecastWeather(event){
     event.preventDefault();
     const parkSearch = searchInput.value.trim();
     const fetchForecast = `${apiForecast}?q=${parkSearch}&units=imperial&appid=${apiKey}`;
+    forecastHeader.innerHTML= '';
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
@@ -277,7 +278,6 @@ function forecastWeather(event){
               const parkSearch = searchInput.value.trim();
               const forecastId = document.createElement('h3');
               const forecastHeader = document.getElementById('forecast-header')
-              forecastHeader.innerHTML= "";
               forecastId.textContent = `Forecasted weather for ${parkSearch}`;
               forecastHeader.appendChild(forecastId);
             }
@@ -369,8 +369,8 @@ function createForecastCard(forecast) {
 searchButton.addEventListener('click', forecastWeather)
 
 document.addEventListener('DOMContentLoaded', function (){
-    const fetchForecast = `${apiForecast}?q=Zion&units=imperial&appid=${apiKey}`;
-    fetch(fetchForecast)
+    const mainForecast = `${apiForecast}?q=Zion&units=imperial&appid=${apiKey}`;
+    fetch(mainForecast)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
