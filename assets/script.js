@@ -261,6 +261,7 @@ searchButton.addEventListener('click', getParkPhotos);
 
   openPage();
 
+const dashboard = document.getElementById('weather-data')
 function forecastWeather(event){
     event.preventDefault();
     const parkSearch = searchInput.value;
@@ -273,10 +274,13 @@ function forecastWeather(event){
             return response.json();
         })
         .then(data => {
+            const forecastContainer = document.createElement('div')
+            forecastContainer.classList.add('column is-4-tablet forecast-info')
             const forecastTitle = document.createElement('h3')
             forecastTitle.textContent = `Forecasted weather for ${parkSearch}`;
             const forecasts = processForecastData(data);
-            forecastContainer.innerHTML = '';
+            dashboard.innerHTML = '';
+            dashboard.appendChild(forecastContainer);
             forecastContainer.appendChild(forecastTitle);
                 forecasts.forEach(forecast => {
                 const forecastCard = createForecastCard(forecast);
@@ -359,27 +363,3 @@ function createForecastCard(forecast) {
 }
 
 searchButton.addEventListener('click', forecastWeather)
-document.addEventListener('DOMContentLoaded', function (){
-    const mainPark = "Zion National Park"
-    const mainForecast = `${apiForecast}?q=Zion&units=imperial&appid=${apiKey}`;
-    fetch(mainForecast)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then(data => {
-            const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${mainPark}`;
-            forecastContainer.appendChild(forecastTitle);
-            const forecasts = processForecastData(data);
-            forecasts.forEach(forecast => {
-                const forecastCard = createForecastCard(forecast);
-                forecastContainer.appendChild(forecastCard);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-})
