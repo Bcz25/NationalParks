@@ -304,7 +304,7 @@ searchButton.addEventListener('click', getParkPhotos);
         })
         .then(data => {
             const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${park}`;
+            forecastTitle.textContent = `Forecasted weather for ${parkWeather}`;
             const forecasts = processForecastData(data);
             forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
