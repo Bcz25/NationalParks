@@ -294,11 +294,11 @@ searchButton.addEventListener('click', getParkPhotos);
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
-                infoContainer.classList.add('column is-full')
+                infoContainer.classList.add('column', 'is-full')
                 throw new Error("Network response was not ok");
             }
             else {
-              infoContainer.classList.add('column is-three-quaters');
+              infoContainer.classList.add('column', 'is-three-quaters');
             }
             return response.json();
         })
@@ -315,7 +315,7 @@ searchButton.addEventListener('click', getParkPhotos);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-            forecastContainer.dashboard.removeChild(forecastContainer);
+            dashboard.removeChild(forecastContainer);
         });
 }
 
@@ -395,11 +395,11 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
-                infoContainer.classList.add('column is-full')
+                infoContainer.classList.add('column', 'is-full')
                 throw new Error("Network response was not ok");
             }
             else {
-              infoContainer.classList.add('column is-three-quaters');
+              infoContainer.classList.add('column', 'is-three-quaters');
             }
             return response.json();
         })
@@ -416,6 +416,6 @@ document.addEventListener('DOMContentLoaded', function(){
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-            forecastContainer.dashboard.removeChild(forecastContainer);
+            dashboard.removeChild(forecastContainer);
         });
 })
