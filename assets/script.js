@@ -303,7 +303,7 @@ searchButton.addEventListener('click', getParkPhotos);
         })
         .then(data => {
             const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${parkSearch} National Park`;
+            forecastTitle.textContent = `Forecasted weather for ${searchTerm} National Park`;
             const forecasts = processForecastData(data);
             forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
