@@ -280,6 +280,7 @@ searchButton.addEventListener('click', getParkPhotos);
       .catch(error => {
           console.error('Error fetching data:', error);
       });
+      forecastWeather();
   }
   openPage();
 
@@ -448,4 +449,3 @@ function createForecastCard(forecast) {
 
 
 searchButton.addEventListener('click', forecastWeather)
-document.addEventListener('DOMContentLoaded', forecastWeather)
