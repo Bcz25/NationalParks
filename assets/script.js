@@ -9,8 +9,8 @@ const searchTerm = getRandomPark();
 const weatherApiKey = "d819c0f02622027c482907b6666513c6";
 const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 const forecastContainer = document.getElementById('park-forecast');
-const deleteWeather = document.getElementById('delete');
 const infoContainer = document.getElementById('park-info')
+const dashboard = document.getElementById('dashboard')
 
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
@@ -295,8 +295,11 @@ searchButton.addEventListener('click', getParkPhotos);
         .then(response => {
             if (!response.ok) {
                 infoContainer.classList.add('is-full')
-                deleteWeather.innerHTML = '';
+                dashboard.removeChild(forecastContainer)
                 throw new Error("Network response was not ok");
+            }
+            else {
+              infoContainer.classList.add('is-three-quaters');
             }
             return response.json();
         })
@@ -304,7 +307,6 @@ searchButton.addEventListener('click', getParkPhotos);
             const forecastTitle = document.createElement('h3')
             forecastTitle.textContent = `Forecasted weather for ${parkSearch} National Park`;
             const forecasts = processForecastData(data);
-            infoContainer.classList.add('is-three-quaters');
             forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
                 forecasts.forEach(forecast => {
@@ -394,8 +396,11 @@ document.addEventListener('DOMContentLoaded', function(){
         .then(response => {
             if (!response.ok) {
                 infoContainer.classList.add('is-full')
-                deleteWeather.innerHTML = '';
+                dashboard.removeChild(forecastContainer)
                 throw new Error("Network response was not ok");
+            }
+            else {
+              infoContainer.classList.add('is-three-quaters');
             }
             return response.json();
         })
