@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function(){
     'Big Bend': { latitude: '29.25', longitude: '-103.25' },
     'Biscayne': { latitude: '25.65', longitude: '-80.08' },
     'Black Canyon': { latitude: '38.57', longitude: '-107.72' },
-    'Bryce': { latitude: '37.57', longitude: '-112.18' },
+    'Bryce Canyon': { latitude: '37.57', longitude: '-112.18' },
     'Canyonlands': { latitude: '38.2', longitude: '-109.93' },
     'Capitol Reef': { latitude: '38.2', longitude: '-111.17' },
     'Carlsbad': { latitude: '32.17', longitude: '-104.44' },
@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function(){
     'Voyageurs': { latitude: '48.5', longitude: '-92.88' },
     'White Sands': { latitude: '32.7', longitude: '-106.17' },
     'Wind Cave': { latitude: '43.57', longitude: '-103.48' },
-    'Wrangell-St. Elias': { latitude: '61', longitude: '-142' },
+    'Elias': { latitude: '61', longitude: '-142' },
     'Yellowstone': { latitude: '44.6', longitude: '-110.5' },
     'Yosemite': { latitude: '37.83', longitude: '-119.5' },
     'Zion': { latitude: '37.3', longitude: '-113.05' }
