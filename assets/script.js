@@ -286,9 +286,9 @@ searchButton.addEventListener('click', getParkPhotos);
   }
 
   //weather dashboard
-  const parkWeather = searchInput.value + ' National Park';
   function forecastWeather(event){
     event.preventDefault();
+    const parkWeather = searchInput.value + ' National Park';
     const fetchForecast = `${weatherApiUrl}?q=${parkWeather}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
         .then(response => {
