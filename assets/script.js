@@ -390,7 +390,7 @@ function createForecastCard(forecast) {
 }
 
 
-searchButton.addEventListener('click', geocodePark)
+searchButton.addEventListener('click', forecastWeather)
 document.addEventListener('DOMContentLoaded', function(){
     const fetchForecast = `${weatherApiUrl}?q=${searchTerm}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
