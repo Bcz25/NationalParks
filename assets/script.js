@@ -9,6 +9,8 @@ const searchTerm = getRandomPark();
 const weatherApiKey = "d819c0f02622027c482907b6666513c6";
 const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 const forecastContainer = document.getElementById('park-forecast');
+const deleteWeather = document.getElementById('delete');
+const infoContainer = document.getElementById('park-info')
 
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
@@ -281,7 +283,6 @@ searchButton.addEventListener('click', getParkPhotos);
       .catch(error => {
           console.error('Error fetching data:', error);
       });
-      forecastWeather();
   }
 
   openPage();
@@ -293,6 +294,8 @@ searchButton.addEventListener('click', getParkPhotos);
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
+                infoContainer.classList.add('is-full')
+                deleteWeather.innerHTML = '';
                 throw new Error("Network response was not ok");
             }
             return response.json();
@@ -301,6 +304,7 @@ searchButton.addEventListener('click', getParkPhotos);
             const forecastTitle = document.createElement('h3')
             forecastTitle.textContent = `Forecasted weather for ${parkSearch} National Park`;
             const forecasts = processForecastData(data);
+            infoContainer.classList.add('is-three-quaters');
             forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
                 forecasts.forEach(forecast => {
@@ -384,3 +388,29 @@ function createForecastCard(forecast) {
 }
 
 searchButton.addEventListener('click', forecastWeather)
+document.addEventListener('DOMContentLoaded', function(){
+    const fetchForecast = `${weatherApiUrl}?q=${searchTerm}&units=imperial&appid=${weatherApiKey}`;
+    fetch(fetchForecast)
+        .then(response => {
+            if (!response.ok) {
+                infoContainer.classList.add('is-full')
+                deleteWeather.innerHTML = '';
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            const forecastTitle = document.createElement('h3')
+            forecastTitle.textContent = `Forecasted weather for ${searchTerm} National Park`;
+            const forecasts = processForecastData(data);
+            forecastContainer.innerHTML = '';
+            forecastContainer.appendChild(forecastTitle);
+                forecasts.forEach(forecast => {
+                const forecastCard = createForecastCard(forecast);
+                forecastContainer.appendChild(forecastCard);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+})
