@@ -287,37 +287,54 @@ searchButton.addEventListener('click', getParkPhotos);
   openPage();
 
   //weather dashboard
-  function forecastWeather(event){
+  function geocodePark (event){
     event.preventDefault();
-    const parkWeather = searchInput.value;
-    const fetchForecast = `${weatherApiUrl}?q=${parkWeather}&units=imperial&appid=${weatherApiKey}`;
-    fetch(fetchForecast)
-        .then(response => {
-            if (!response.ok) {
-                infoContainer.classList.add('column', 'is-full')
-                throw new Error("Network response was not ok");
-            }
-            else {
-              infoContainer.classList.add('column', 'is-three-quaters');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${parkWeather} National Park`;
-            const forecasts = processForecastData(data);
-            forecastContainer.innerHTML = '';
-            forecastContainer.appendChild(forecastTitle);
-                forecasts.forEach(forecast => {
-                const forecastCard = createForecastCard(forecast);
-                forecastContainer.appendChild(forecastCard);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            dashboard.removeChild(forecastContainer);
-        });
-}
+    const parkName = searchInput.value;
+    const countryCode = 'US'
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${parkName},${countryCode}&appid=${weatherApiKey}`;
+    fetch(geoUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("failed to get geo-location")
+        }
+        return response.json();
+    })
+    .then (data => {
+      console.log(data)
+    })
+    
+  }
+      function forecastWeather(event){
+      event.preventDefault();
+      const parkWeather = searchInput.value;
+      const fetchForecast = `${weatherApiUrl}?q=${parkWeather}&units=imperial&appid=${weatherApiKey}`;
+      fetch(fetchForecast)
+          .then(response => {
+              if (!response.ok) {
+                  infoContainer.classList.add('column', 'is-full')
+                  throw new Error("Network response was not ok");
+              }
+              else {
+                infoContainer.classList.add('column', 'is-three-quaters');
+              }
+              return response.json();
+          })
+          .then(data => {
+              const forecastTitle = document.createElement('h3')
+              forecastTitle.textContent = `Forecasted weather for ${parkWeather} National Park`;
+              const forecasts = processForecastData(data);
+              forecastContainer.innerHTML = '';
+              forecastContainer.appendChild(forecastTitle);
+                  forecasts.forEach(forecast => {
+                  const forecastCard = createForecastCard(forecast);
+                  forecastContainer.appendChild(forecastCard);
+              });
+          })
+          .catch(error => {
+              console.error('Error fetching data:', error);
+              dashboard.removeChild(forecastContainer);
+          });
+        }
 
 function processForecastData(data) {
     const forecasts = [];
@@ -389,7 +406,8 @@ function createForecastCard(forecast) {
     return card;
 }
 
-searchButton.addEventListener('click', forecastWeather)
+
+searchButton.addEventListener('click', geocodePark)
 document.addEventListener('DOMContentLoaded', function(){
     const fetchForecast = `${weatherApiUrl}?q=${searchTerm}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
