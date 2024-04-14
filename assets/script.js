@@ -288,9 +288,9 @@ searchButton.addEventListener('click', getParkPhotos);
   openPage();
 
   //weather dashboard
+  const parkWeather = searchInput.val;
   function forecastWeather(){
-    const park = searchInput.value + 'National Park';
-    const fetchForecast = `${weatherApiUrl}?q=${park}&units=imperial&appid=${weatherApiKey}`;
+    const fetchForecast = `${weatherApiUrl}?q=${parkWeather}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {

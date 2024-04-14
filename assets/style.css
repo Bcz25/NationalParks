@@ -237,7 +237,6 @@ p {
 }
 
 .forecast-info {
-    border: var(--brown) dotted 6px;
     border-radius: 15px;
     margin-right: 15px;
     padding: 10px;
