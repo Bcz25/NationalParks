@@ -7,7 +7,7 @@ const parkActivitiesEl = document.getElementById('activities')
 const searchTerm = getRandomPark();
 
 const weatherApiKey = "d819c0f02622027c482907b6666513c6";
-const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
+const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?';
 const forecastContainer = document.getElementById('park-forecast');
 const infoContainer = document.getElementById('parkInfo')
 const dashboard = document.getElementById('dashboard')
@@ -486,5 +486,5 @@ document.addEventListener('DOMContentLoaded', function(searchTerm){
             console.error('Error fetching data:', error);
             dashboard.removeChild(forecastContainer);
         });
-      }
+    }
 })
