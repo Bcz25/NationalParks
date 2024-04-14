@@ -40,12 +40,12 @@ searchButton.addEventListener('click', function(event) {
       })
       .then(data => {
         const park = data.data.find(park => park.fullName.toLowerCase().includes(searchTerm.toLowerCase()));
-    
         
         // Check if the park was found
         if (park) {
     
             const activityNames = park.activities.map(activity => activity.name)
+
             // Display information about the park
             const parkData = {
                 park: park.fullName,
@@ -53,7 +53,6 @@ searchButton.addEventListener('click', function(event) {
                 weather: park.weatherInfo,
                 activities: activityNames
             }
-    
             createParkCard(parkData);
           console.log(parkData);
         } else {
@@ -284,8 +283,8 @@ searchButton.addEventListener('click', getParkPhotos);
   }
   openPage();
 
-//weather dashboard
-function getParkLoc(parkName){
+function forecastWeather(){
+  const parkName = searchInput.value.trim();
   const parkLocations = {
     'Acadia': { latitude: '44.35', longitude: '-68.21' },
     'Arches': { latitude: '38.68', longitude: '-109.57' },
@@ -348,12 +347,7 @@ function getParkLoc(parkName){
     'Yosemite': { latitude: '37.83', longitude: '-119.5' },
     'Zion': { latitude: '37.3', longitude: '-113.05' }
 };
-  return parkLocations[parkName];
-}
-
-function forecastWeather(){
-  const parkName = searchInput.value.trim();
-  const parkLoc = getParkLoc(parkName);
+  const parkLoc = parkLocations[parkName];
   if (parkLoc) {
       const { latitude, longitude } = parkLoc;
       const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`;
