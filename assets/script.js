@@ -284,11 +284,12 @@ searchButton.addEventListener('click', getParkPhotos);
           console.error('Error fetching data:', error);
       });
   }
+  openPage();
 
   //weather dashboard
   function forecastWeather(event){
     event.preventDefault();
-    const parkWeather = searchInput.value + ' National Park';
+    const parkWeather = searchInput.value;
     const fetchForecast = `${weatherApiUrl}?q=${parkWeather}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
         .then(response => {
@@ -303,7 +304,7 @@ searchButton.addEventListener('click', getParkPhotos);
         })
         .then(data => {
             const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${parkWeather}`;
+            forecastTitle.textContent = `Forecasted weather for ${parkWeather} National Park`;
             const forecasts = processForecastData(data);
             forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
@@ -389,7 +390,6 @@ function createForecastCard(forecast) {
 }
 
 searchButton.addEventListener('click', forecastWeather)
-document.addEventListener('DOMContentLoaded', openPage)
 document.addEventListener('DOMContentLoaded', function(){
     const fetchForecast = `${weatherApiUrl}?q=${searchTerm}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
