@@ -7,7 +7,7 @@ const parkActivitiesEl = document.getElementById('activities')
 const searchTerm = getRandomPark();
 
 const weatherApiKey = "d819c0f02622027c482907b6666513c6";
-const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?';
+const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 const forecastContainer = document.getElementById('park-forecast');
 const infoContainer = document.getElementById('parkInfo')
 const dashboard = document.getElementById('dashboard')
@@ -448,37 +448,4 @@ function createForecastCard(forecast) {
 
 
 searchButton.addEventListener('click', forecastWeather)
-document.addEventListener('DOMContentLoaded', function(){
-  const parkName = searchInput.value.trim();
-  const parkLoc = getParkLoc(parkName);
-  if (parkLoc) {
-      const { latitude, longitude } = parkLoc;
-      const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`;
-      fetch(fetchForecast)
-        .then(response => {
-            if (!response.ok) {
-                infoContainer.classList.add('column', 'is-full')
-                throw new Error("Network response was not ok");
-            }
-            else {
-              infoContainer.classList.add('column', 'is-three-quaters');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${parkName} National Park`;
-            const forecasts = processForecastData(data);
-            forecastContainer.innerHTML = '';
-            forecastContainer.appendChild(forecastTitle);
-                forecasts.forEach(forecast => {
-                const forecastCard = createForecastCard(forecast);
-                forecastContainer.appendChild(forecastCard);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            dashboard.removeChild(forecastContainer);
-        });
-    }
-})
+document.addEventListener('DOMContentLoaded', forecastWeather)
