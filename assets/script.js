@@ -285,11 +285,79 @@ searchButton.addEventListener('click', getParkPhotos);
   openPage();
 
 //weather dashboard
-function forecastWeather(event){
-event.preventDefault();
-const parkWeather = searchInput.value;
-const fetchForecast = `${weatherApiUrl}?q=${parkWeather}&units=imperial&appid=${weatherApiKey}`;
-fetch(fetchForecast)
+function getParkLoc(searchTerm){
+  const parkLocations = {
+    'Acadia': { latitude: '44.35', longitude: '-68.21' },
+    'Arches': { latitude: '38.68', longitude: '-109.57' },
+    'Badlands': { latitude: '43.75', longitude: '-102.5' },
+    'Big Bend': { latitude: '29.25', longitude: '-103.25' },
+    'Biscayne': { latitude: '25.65', longitude: '-80.08' },
+    'Black Canyon': { latitude: '38.57', longitude: '-107.72' },
+    'Bryce': { latitude: '37.57', longitude: '-112.18' },
+    'Canyonlands': { latitude: '38.2', longitude: '-109.93' },
+    'Capitol Reef': { latitude: '38.2', longitude: '-111.17' },
+    'Carlsbad': { latitude: '32.17', longitude: '-104.44' },
+    'Channel Islands': { latitude: '34.01', longitude: '-119.42' },
+    'Cuyahoga Valley': { latitude: '41.24', longitude: '-81.55' },
+    'Crater Lake': { latitude: '42.94', longitude: '-122.1' },
+    'Death Valley': { latitude: '36.24', longitude: '-116.82' },
+    'Denali': { latitude: '63.33', longitude: '-150.5' },
+    'Dry Tortugas': { latitude: '24.63', longitude: '-82.87' },
+    'Everglades': { latitude: '25.32', longitude: '-80.93' },
+    'Gates of the Arctic': { latitude: '67.78', longitude: '-153.3' },
+    'Gateway Arch': { latitude: '38.63', longitude: '-90.19' },
+    'Glacier Bay': { latitude: '58.5', longitude: '-137' },
+    'Grand Canyon': { latitude: '36.06', longitude: '-112.14' },
+    'Grand Teton': { latitude: '43.73', longitude: '-110.8' },
+    'Great Basin': { latitude: '38.98', longitude: '-114.3' },
+    'Great Sand Dunes': { latitude: '37.73', longitude: '-105.51' },
+    'Great Smoky Mountains': { latitude: '35.68', longitude: '-83.53' },
+    'Guadalupe Mountains': { latitude: '31.92', longitude: '-104.87' },
+    'Haleakalā': { latitude: '20.72', longitude: '-156.17' },
+    'Hawaii Volcanoes': { latitude: '19.38', longitude: '-155.2' },
+    'Hot Springs': { latitude: '34.51', longitude: '-93.05' },
+    'Indiana Dunes': { latitude: '41.6533', longitude: '-87.0524' },
+    'Isle Royale': { latitude: '48.1', longitude: '-88.55' },
+    'Joshua Tree': { latitude: '33.79', longitude: '-115.9' },
+    'Katmai': { latitude: '58.5', longitude: '-155' },
+    'Kenai Fjords': { latitude: '59.92', longitude: '-149.65' },
+    'Kings Canyon': { latitude: '36.8', longitude: '-118.55' },
+    'Kobuk Valley': { latitude: '67.55', longitude: '-159.28' },
+    'Lake Clark': { latitude: '60.97', longitude: '-153.42' },
+    'Lassen Volcanic': { latitude: '40.49', longitude: '-121.51' },
+    'Mammoth Cave': { latitude: '37.18', longitude: '-86.1' },
+    'Mesa Verde': { latitude: '37.18', longitude: '-108.49' },
+    'Mount Rainier': { latitude: '48.7', longitude: '-121.2' },
+    'New River Gorge': { latitude: '38.1', longitude: '-81.1' },
+    'North Cascades': { latitude: '48.7', longitude: '-121.2' },
+    'Olympic': { latitude: '47.97', longitude: '-123.5' },
+    'Petrified Forest': { latitude: '35.07', longitude: '-109.78' },
+    'Pinnacles': { latitude: '36.48', longitude: '-121.16' },
+    'Redwood': { latitude: '41.3', longitude: '-124' },
+    'Rocky Mountain': { latitude: '40.4', longitude: '-105.58' },
+    'Saguaro': { latitude: '32.25', longitude: '-110.5' },
+    'Sequoia': { latitude: '36.43', longitude: '-118.68' },
+    'Shenandoah': { latitude: '38.53', longitude: '-78.35' },
+    'Theodore Roosevelt': { latitude: '46.97', longitude: '-103.45' },
+    'Virgin Islands': { latitude: '18.33', longitude: '-64.73' },
+    'Voyageurs': { latitude: '48.5', longitude: '-92.88' },
+    'White Sands': { latitude: '32.7', longitude: '-106.17' },
+    'Wind Cave': { latitude: '43.57', longitude: '-103.48' },
+    'Wrangell-St. Elias': { latitude: '61', longitude: '-142' },
+    'Yellowstone': { latitude: '44.6', longitude: '-110.5' },
+    'Yosemite': { latitude: '37.83', longitude: '-119.5' },
+    'Zion': { latitude: '37.3', longitude: '-113.05' }
+};
+  return parkLocations[searchTerm];
+}
+
+function forecastWeather(searchTerm){
+  const parkLoc = getParkLoc(searchTerm);
+  const parkName = searchInput.value;
+  if (parkLoc) {
+      const { latitude, longitude } = parkLoc;
+      const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`;
+      fetch(fetchForecast)
     .then(response => {
         if (!response.ok) {
             infoContainer.classList.add('column', 'is-full')
@@ -302,7 +370,7 @@ fetch(fetchForecast)
     })
     .then(data => {
         const forecastTitle = document.createElement('h3')
-        forecastTitle.textContent = `Forecasted weather for ${parkWeather} National Park`;
+        forecastTitle.textContent = `Forecasted weather for ${parkName} National Park`;
         const forecasts = processForecastData(data);
         forecastContainer.innerHTML = '';
         forecastContainer.appendChild(forecastTitle);
@@ -316,7 +384,7 @@ fetch(fetchForecast)
         dashboard.removeChild(forecastContainer);
     });
   }
-
+}
 function processForecastData(data) {
     const forecasts = [];
     
@@ -338,8 +406,6 @@ function processForecastData(data) {
             const minTemp = item.main.temp_min;
             const humidity = item.main.humidity;
             const description = item.weather[0].description;
-            const iconCode = item.weather[0].icon;
-            const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
 
 
             forecasts.push({
@@ -348,7 +414,6 @@ function processForecastData(data) {
                 minTemp: minTemp,
                 humidity: humidity,
                 description: description,
-                iconUrl: iconUrl
             });
         }
     });
@@ -389,9 +454,13 @@ function createForecastCard(forecast) {
 
 
 searchButton.addEventListener('click', forecastWeather)
-document.addEventListener('DOMContentLoaded', function(){
-    const fetchForecast = `${weatherApiUrl}?q=${searchTerm}&units=imperial&appid=${weatherApiKey}`;
-    fetch(fetchForecast)
+document.addEventListener('DOMContentLoaded', function(searchTerm){
+  const parkName = searchInput.value;
+  const parkLoc = getParkLoc(searchTerm);
+  if (parkLoc) {
+      const { latitude, longitude } = parkLoc;
+      const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`;
+      fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
                 infoContainer.classList.add('column', 'is-full')
@@ -404,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function(){
         })
         .then(data => {
             const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${searchTerm} National Park`;
+            forecastTitle.textContent = `Forecasted weather for ${parkName} National Park`;
             const forecasts = processForecastData(data);
             forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
@@ -417,4 +486,5 @@ document.addEventListener('DOMContentLoaded', function(){
             console.error('Error fetching data:', error);
             dashboard.removeChild(forecastContainer);
         });
+      }
 })
