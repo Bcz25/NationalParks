@@ -449,6 +449,6 @@ function createForecastCard(forecast) {
 
 searchButton.addEventListener('click', forecastWeather)
 document.addEventListener('DOMContentLoaded', function(){
-  const parkName = searchInput.value.trim();
+  const parkName = searchTerm;
   forecastWeather(parkName);
 })
