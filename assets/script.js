@@ -289,7 +289,8 @@ searchButton.addEventListener('click', getParkPhotos);
 
   //weather dashboard
   function forecastWeather(){
-    const fetchForecast = `${weatherApiUrl}?q=${searchTerm}&units=imperial&appid=${weatherApiKey}`;
+    const park = searchInput.value + 'National Park';
+    const fetchForecast = `${weatherApiUrl}?q=${park}&units=imperial&appid=${weatherApiKey}`;
     fetch(fetchForecast)
         .then(response => {
             if (!response.ok) {
@@ -303,7 +304,7 @@ searchButton.addEventListener('click', getParkPhotos);
         })
         .then(data => {
             const forecastTitle = document.createElement('h3')
-            forecastTitle.textContent = `Forecasted weather for ${searchTerm} National Park`;
+            forecastTitle.textContent = `Forecasted weather for ${park}`;
             const forecasts = processForecastData(data);
             forecastContainer.innerHTML = '';
             forecastContainer.appendChild(forecastTitle);
