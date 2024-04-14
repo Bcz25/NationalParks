@@ -350,7 +350,7 @@ function forecastWeather(){
   const parkLoc = parkLocations[parkName];
   if (parkLoc) {
       const { latitude, longitude } = parkLoc;
-      const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&units=imperial&cnt=5&appid=${weatherApiKey}`;
+      const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&units=imperial&&appid=${weatherApiKey}`;
       fetch(fetchForecast)
     .then(response => {
         if (!response.ok) {
