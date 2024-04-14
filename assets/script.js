@@ -205,7 +205,7 @@ searchButton.addEventListener('click', getParkPhotos);
     
     
     // Construct the fetch URL with the search term and API key
-    const fetchUrl = `${apiUrl}?q=${searchTerm}&api_key=${apiKey}`;
+    const fetchUrl = `${apiUrl}?q=${searchTerm}&units=imperial&cnt=5&api_key=${apiKey}`;
 
     console.log(searchTerm);
 
