@@ -194,10 +194,8 @@ searchButton.addEventListener('click', getParkPhotos);
       }
     });
   });
-  function getRandomPark() {
-    const randomIndex = Math.floor(Math.random() * parksArray.length);
-    return parksArray[randomIndex];
-}
+  getRandomPark();
+
   function openPage() {
     const apiUrl = 'https://developer.nps.gov/api/v1/parks';
     
