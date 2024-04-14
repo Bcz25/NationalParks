@@ -285,7 +285,7 @@ searchButton.addEventListener('click', getParkPhotos);
   openPage();
 
 //weather dashboard
-function getParkLoc(searchTerm){
+function getParkLoc(parkName){
   const parkLocations = {
     'Acadia': { latitude: '44.35', longitude: '-68.21' },
     'Arches': { latitude: '38.68', longitude: '-109.57' },
@@ -348,12 +348,12 @@ function getParkLoc(searchTerm){
     'Yosemite': { latitude: '37.83', longitude: '-119.5' },
     'Zion': { latitude: '37.3', longitude: '-113.05' }
 };
-  return parkLocations[searchTerm];
+  return parkLocations[parkName];
 }
 
-function forecastWeather(searchTerm){
-  const parkLoc = getParkLoc(searchTerm);
-  const parkName = searchInput.value;
+function forecastWeather(){
+  const parkName = searchInput.value.trim();
+  const parkLoc = getParkLoc(parkName);
   if (parkLoc) {
       const { latitude, longitude } = parkLoc;
       const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`;
@@ -454,9 +454,9 @@ function createForecastCard(forecast) {
 
 
 searchButton.addEventListener('click', forecastWeather)
-document.addEventListener('DOMContentLoaded', function(searchTerm){
-  const parkName = searchInput.value;
-  const parkLoc = getParkLoc(searchTerm);
+document.addEventListener('DOMContentLoaded', function(){
+  const parkName = searchInput.value.trim();
+  const parkLoc = getParkLoc(parkName);
   if (parkLoc) {
       const { latitude, longitude } = parkLoc;
       const fetchForecast = `${weatherApiUrl}?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`;
