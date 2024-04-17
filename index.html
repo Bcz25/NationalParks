@@ -9,6 +9,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Playpen+Sans:wght@100..800&family=Tilt+Prism&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
 
 
         <link rel="stylesheet" href="./assets/style.css">
@@ -33,6 +34,9 @@
                                 <datalist id="parks-list"></datalist>
                             <button id='search-button' class="button justify-content-center"
                                 type="submit">Search</button>
+                                <select id="favorites-list" placeholder="Your Favorites">
+                                    <option value="" disabled selected>Your Favorites</option>
+                                </select>
                         </form>
                     </div>
                 </div>
@@ -47,21 +51,22 @@
 
         <section class="section">
             <div class="container">
-                <div class="columns" id="dashboard">
-                    
-                    <!-- weather forecast section -->
-                    <div id="park-forecast" class="forecast-info"></div>
+                <div class="columns">
 
                     <!-- Info and images section with two children -->
 
                     <!-- Park info section with two children -->
 
-                    <div id="parkInfo" class="custom-park-info">
+                    <div id="parkInfo" class="column is-12-tablet custom-park-info">
 
                         <!-- Thumbnail with address link -->
+                        <div class="popup-parent">
+                            <button id="add-to-favorites" class="button add-to-fav-btn"><i class="fa-solid fa-plus fa-2xl" style="color: #ffffff;"></i></button>
+                        </div>
                         <div id="park-name" class="column is-size-5">
 
                         </div>
+
 
                         <div class="container">
                             <div class="columns">
@@ -93,10 +98,11 @@
                                         <br>
                                         <button class="js-modal-trigger button" data-target="modal-js-activities">
                                             Activities</button>
-                                            <div id="gallery">
+                                        <div id="forecast-title"></div>
+                                        <div id="park-forecast" class="forecast-info columns" ></div>
+                                        <div id="gallery">
                                         <!-- image gallery with grid flexbox to display images we can use labels for photographer credits -->
-
-                                        </div>
+                                            </div>
                                         <div id="modal-js-activities" class="modal">
                                             <div class="modal-background"></div>
                                             <div class="modal-card">
@@ -131,7 +137,12 @@
 
     <footer>
         <h3 class="is-size-4-mobile is-size-3-tablet is-size-2-desktop">Adventure safely and enjoy!!</h3>
-        <p>Api Sources</p>
+        <p>Sources</p>
+        <ul>
+            <li>National Park Services API</li>
+            <li>Pexels Image API</li>
+            <li>OpenWeatherMap API</li>
+        </ul>
     </footer>
     <script src="./assets/script.js"></script>
 </body>
